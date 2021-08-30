@@ -1,0 +1,433 @@
+:root{
+    --main-font:sans-serif;
+    --font-size:16px;
+    --main-color:#f7df1e;
+    --second-color:#222;
+    --main-modal-color:rgba(247,222,30,0.85);
+    --second-modal-color:rgba(34,34,34,0.85);
+    --container-width:1200px;
+}
+
+html{
+    box-sizing: border-box;
+    font-family: var(--main-font);
+    font-size: var(--font-size);
+    scroll-behavior: smooth;
+}
+*,
+*:before,
+*:after{
+    box-sizing: inherit;
+}
+
+header{
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--main-color);
+    color:var(--second-color);
+    z-index: 997;
+}
+header h1{
+    margin: 0;
+    text-align: center;
+}
+
+
+body{
+    margin: 0;
+    overflow-x: hidden;
+    background-color:#222;
+}
+img{
+    max-width: 100%;
+    height: auto;
+}
+.section{
+padding: 2rem;
+padding-top: 4rem;
+margin-left: auto;
+margin-right: auto;
+width: 100%;
+max-width: var(--container-width);
+min-height: 100vh;
+text-align: center;
+color: var(--main-color);
+}
+
+.panel{
+    position: fixed;
+    z-index: 998;
+    background-color: var(--second-modal-color);
+    width: 33%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.5s ease, opacity .5s ease;
+    transform: translate(-100%,0);
+    overflow-y: auto;
+    
+
+}
+
+.panel.is-active{
+    visibility: visible;
+    transform: translate(0,0);
+    opacity: 1;
+    
+}
+
+
+
+.panel-btn{
+    position: fixed;
+    z-index: 999;
+    bottom: 1vh;
+    right: 1vw;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    padding:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-color);
+    color:white;
+}
+
+.menu{
+    padding-top: 30px;
+    width: 100%;
+    margin:0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: left;
+    text-align: left;
+
+}
+.menu a{
+    width: 100%;
+    margin:0;
+    padding: 1rem;
+    display: block;
+    font-size: 1rem;
+    text-decoration: none;
+    color: var(--main-color);
+    transition: all 0.3s ease;
+
+}
+
+.menu a:hover{
+    font-weight: bold;
+    background-color: var(--main-modal-color);
+    color: var(--second-color);
+}
+
+#reproductor{
+margin-top: 30px;
+}
+
+/* Eventos del tclado*/
+.stage{
+display: flex;
+min-height: 50vh;
+background-color: var(--second-color);
+border-color: var(--main-modal-color);
+border-style: solid;
+margin: 0 auto;
+
+}
+
+.stage h4{
+    flex: auto;
+    
+    justify-content: center;
+    color: var(--main-color);
+    
+
+}
+
+.ball{
+margin: auto;
+width: 4rem;
+height: 4rem;
+border-radius: 50%;
+background-color: var(--main-color);
+}
+
+/* Cuenta regresiva */
+
+#contenedorEvento{
+    color: var(--main-modal-color);
+}
+
+
+/*Boton scroll top */
+
+
+
+.btn{
+    position: fixed;
+    z-index: 999;
+    bottom: 1vh;
+    right: calc(4.25rem + 1vw);
+    width: 4rem;
+    height: 4rem;
+    font-size: 2rem;
+    border-radius: 50%;
+    font-weight: bold;
+    background-color: var(--main-color);
+    color: var(--second-color);
+    border: 0;
+    outline: 0;
+    transition: .2s ease;
+}
+
+.btn:hover{
+    background-color: var(--second-color);
+    color: var(--main-color);
+}
+
+.hidden{
+opacity: 0;
+visibility: hidden;
+}
+
+.darkMode-btn{
+left: 1vw;
+}
+
+.lightTheme{
+    background-color: white;
+    color: var(--second-color) !important;
+}
+
+.enlace{
+    text-decoration: none;
+    color: var(--main-color);
+    font-weight: bold;
+    transition: 0.3s ease;
+    
+}
+
+.enlace:hover{
+    color: var(--main-modal-color);
+}
+
+.enlace img{
+    padding-top: 20px;
+    padding-bottom: 15px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    width: 80%;
+}
+
+.mapa-escritorio{
+    margin-top: 20px;
+}
+
+/* detectar conexion */
+
+.divoffline{
+    background-color: red;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    z-index: 997;
+    top: 0;
+    position: sticky;
+    text-align: center;
+   
+    padding: 0;
+    transition: 0.4s ease;
+}
+
+
+.divonline{
+    background-color: greenyellow;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    z-index: 998;
+    top: 0;
+    position: sticky;
+    text-align: center;
+    padding: 0;
+    transition: 0.5s ease-in-out;
+    }
+
+.divhidden{
+    opacity: 0;
+    visibility: hidden;
+    margin: -10px;
+    transition: 0.5s ease-in-out;
+       }
+
+       /* Search Filters */
+
+       .cards{
+           display:grid;
+           grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+       }
+       .card{
+        background-color: var(--second-color);
+        color: var(--main-color);
+        transition: all 0.3s ease-out;
+       }
+       .card img{
+           width: 100%;
+           height: auto;
+       }
+
+       .card figcaption{
+           padding: 1rem;
+       }
+
+       .filter{
+          /*  display: none; */
+           visibility: hidden;
+           opacity: 0;
+           order: 1;
+
+       }
+
+       /* Responsive slider */
+
+       .slider{
+           position: relative;
+           width: 80%;
+           
+           margin: 1rem auto;
+           text-align: center;
+
+       }
+
+       .slider-slides{
+           position: relative;
+           height: 400px;
+
+       }
+
+       .slider-slide{
+           position: absolute;
+           top: 0;
+           left: 0;
+           height: 100%;
+           width: 100%;
+           opacity: 0;
+           visibility: hidden;
+           transition: opacity 1s ease;
+       }
+
+       .slider-slide.img{
+           height: inherit;
+           width: inherit;
+           object-fit: cover;
+           object-position: 50% 0%;
+
+       }
+
+       .slider-slide.active{
+           opacity: 1;
+           visibility: visible;
+       }
+
+       .slider-btns{
+           position: absolute;
+           width: 100%;
+           top: 50%;
+           display: flex;
+           justify-content: space-between;
+           font-weight: bold;
+           font-size: 3rem;
+       }
+
+       .slider a{
+           display: block;
+           width: 4rem;
+           height: 4rem;
+           border-radius: 50%;
+           border: thin solid #000;
+           text-decoration: none;
+           background-color: #fff;
+           color: #000;
+           transition: all 0.3s ease;
+       }
+
+       .slider a:hover{
+           color:green;
+           
+       }
+
+       /* Scroll Spy */
+
+       @media screen and (min-width: 1024px){
+        body{
+            display: grid;
+            grid-template-columns: 80% 20%;
+            grid-template-rows: 4rem auto;
+            grid-template-areas: 
+            "header header"
+            "main   panel";
+        }
+        main{
+            grid-area: main;
+
+        }
+        header{
+            grid-area: header;
+        }
+
+        .panel{
+            grid-area: panel;
+            position: sticky;
+            top: 4rem;
+            background-color: var(--second-color);
+            justify-content: flex-start;
+            align-self: start;
+            visibility: visible;
+            transform: translate(0,0);
+            opacity: 1;
+            width: 100%;
+
+
+        }
+        .panel-btn{
+            display: none;
+        }
+
+        .menu{
+            justify-content: star;
+            text-align: right;
+        }
+        .menu a{
+            font-size: 1rem;
+            padding: 0.75rem;
+        }
+        .menu a:hover,
+        .menu a.active{
+            color: var(--second-color);
+            background-color: var(--main-color);
+        }
+        .scroll-top-btn{
+            right: initial;
+            left: 5rem;
+        }
+        
+
+
+       }
+
+video{
+    max-width: 70%;
+}
