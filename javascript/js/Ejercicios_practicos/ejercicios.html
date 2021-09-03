@@ -43,8 +43,8 @@
     <a href="#seccion12" data-scroll-spy >Slider</a>
     <a href="#seccion13" data-scroll-spy >Video Inteligente</a>
     <a href="#seccion14" data-scroll-spy >Validacion de formularios</a>
-    <a href="#seccion15" data-scroll-spy >Seccion</a>
-    <a href="#seccion16" data-scroll-spy >Seccion</a>
+    <a href="#seccion15" data-scroll-spy >Narrador de voz</a>
+    <a href="ajax.html" data-scroll-spy >Ajax</a>
 </nav>
 </aside>
 
@@ -208,9 +208,23 @@
     </section> 
     <section data-light id="seccion14" class="section" data-scroll-spy>
         <h2>Validacion de formularios</h2>
+        <form target="_blank" action="https://formsubmit.co/josmacpac@gmail.com" method="POST" class="contact-form">
+            <legend>Envianos tus comentarios</legend>
+            <input type="text" name="name" placeholder="Escribe tu nombre" title="Nombre solo acepta letras y espacion en blanco"  pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$" required>
+            <input type="email" name="email" placeholder="Ingresa tu Email" title="formato incorrecto" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" required> 
+            <input type="text" name="subject" placeholder="Asunto" title="El asunto es requerido" required>
+            <textarea name="comments" id="" cols="50" rows="5" placeholder="Escribe tus comentarios" data-pattern="^.{1,255}$" title="Tu comentario no debe exceder los 255 caracteres" required></textarea>
+            <input type="submit" value="Enviar">
+            <div class="contact-form-loader none">
+                <img src="/assets/rings.svg" alt="loader">
+            </div>
+            <div class="contact-form-response none">
+                <p>los datos han sido enviados</p>
+            </div>
+        </form>
     </section> 
     <section data-light id="seccion15" class="section" data-scroll-spy>
-        <h2>Seccion</h2>
+        <h2>Narrador de voz</h2>
     </section> 
 </main>
 
