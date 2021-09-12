@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="css/estilos.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"> 
-    <title>AJAX - Asynchronous JavaScript & XML</title>
+    <title>CRUD API REST AJAX</title>
 </head>
 <body data-light>
     <header class="header">
-        <h1>AJAX Asynchronous JavaScript & XML</h1>
+        <h1>CRUD API REST AJAX </h1>
         
     </header>
     <div id="" class="divonline divhidden">
@@ -31,8 +31,8 @@
 <aside class="panel">
 <nav class="menu">
     <a href="ejercicios.html"  data-scroll-spy>Ejercicios JavaScript</a>
-    <a href="crud_ajax.html"  data-scroll-spy>CRUD API REST AJAX </a>
-    <a href="ajax.html"  data-scroll-spy>AJAX </a>
+    <a href="crud_ajax.html"  data-scroll-spy>OBJETO XMLHttpRequest </a>
+    <a href="#crudFetch"  data-scroll-spy>API FETCH + ASYNC.AWAIT </a>
    <!--  <a href="#seccion1"  data-scroll-spy>Reloj Digital y Alarma</a>
     <a href="#seccion2"  data-scroll-spy>Eventos del teclado</a>
     <a href="#seccion3"  data-scroll-spy>CountDown</a>
@@ -54,29 +54,59 @@
 
 <main>
 
-    <section id="section1">
-    <h2>Librerias Externas</h2>
-    <ul>
-
-    </ul>
-
-
-    <h2>Objeto XMLHttpRequest</h2>
-    <ol id="xhr"></ol>
-
-    <h2> API Fetch</h2>
-    <ol id="fetch"></ol>
-
-    <h2> API Fetch + Async-Await</h2>
-    <ol id="fetch-async"></ol>
-
-    <h2>Axios</h2>
-    <ol id="axios"></ol>
+    <section id="crud" class="crud">
+        <h1>API FETCH + ASYNC.AWAIT</h1>
+        <article>
+            <h2 class="crud-title">Agregar Santo</h2>
+            <form action="" class="crud-form">
+                <input type="text" name="nombre" placeholder="name" required >
+                <br><br>
+                <input type="text"  name="constelacion" placeholder="constelacion" required>
+                <br>
+                <br>
+                <input type="submit" value="Actualizar">
+                <input type="hidden" name="id">
+            <br>
+            <br>
+            </form >
+        </article>
+        <article>
+            <h2>Ver Santos</h2>
+            <table class="crud-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Constelacion</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </article>
     
-    <h2>Axios + Async - Await</h2>
-    <ol id="axios-async"></ol>
 </section>
+<template id="crud-template">
+    <tr>
+        <td class="name"></td>
+        <td class="constellation"></td>
+        <td>
+            <button class="edit">Editar</button>
+            <button class="delete">Eliminar</button>
+        </td>
+    </tr>
+</template>
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
 
@@ -105,5 +135,31 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="js/script_ajax.js" type="module"></script>
-<script src="js/ajax.js"></script>
+
+
+<script >
+const d = document,
+$table=d.querySelector(".crud-table"),
+$form = d.querySelector(".crud-form"),
+$title = d.querySelector(".crud-title"),
+$template = d.getElementById("crud-template").content,
+$fragment = d.createDocumentFragment();
+
+
+const getAll = async()=>{
+    try {
+        let  res = await fetch("http://localhost:5555/santos")
+        json = await res.json();
+        if(!res.ok)throw{status: res.status, statusText: res.statusText};
+
+
+    } catch (err) {
+        let message = err.statusText || "Ocurrio un error";
+        $table.insertAdjacentHTML("afterend", `<p><b> Error${err.status}: ${message}</b></p>`);
+        
+    }
+}
+d.addEventListener("DOMContentLoaded", getAll);
+
+</script>
 </html>

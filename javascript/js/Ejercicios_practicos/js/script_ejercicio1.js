@@ -14,6 +14,7 @@ import finder from "./filtro_busqueda.js";
 import slider from "./slider.js";
 import scrollSpy from "./scroll_spy.js";
 import smartVideo from "./video_inteligente.js";
+import formValidation from "./validacion_formulario.js";
 
 
 const d= document;
@@ -34,6 +35,7 @@ d.addEventListener("DOMContentLoaded", e=>{
     slider();
     scrollSpy();
     smartVideo();
+    formValidation();
 })
 
 d.addEventListener("keydown", e=>{

@@ -1,0 +1,256 @@
+<!DOCTYPE html >
+<html lang="en" data-light >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <link href="css/hamburgers.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/estilos.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"> 
+    <title>CRUD API REST AJAX</title>
+</head>
+<body data-light>
+    <header class="header">
+        <h1>CRUD API REST AJAX </h1>
+        
+    </header>
+    <div id="" class="divonline divhidden">
+        <h2>Conexion establecida</h2>
+    </div>
+    <div id="" class="divoffline divhidden">
+        <h2>Se perdió la conexion</h2>
+    </div>
+<button class="panel-btn hamburger hamburger--collapse" type="button">
+    <span class="hamburger-box">
+      <span class="hamburger-inner"></span>
+    </span>
+  </button>
+  
+<aside class="panel">
+<nav class="menu">
+    <a href="ejercicios.html"  data-scroll-spy>Ejercicios JavaScript</a>
+    <a href="crud_ajax.html"  data-scroll-spy>OBJETO XMLHttpRequest </a>
+    <a href="crud_fetch.html"  data-scroll-spy>API FETCH + ASYNC.AWAIT </a>
+   <!--  <a href="#seccion1"  data-scroll-spy>Reloj Digital y Alarma</a>
+    <a href="#seccion2"  data-scroll-spy>Eventos del teclado</a>
+    <a href="#seccion3"  data-scroll-spy>CountDown</a>
+    <a href="#seccion4"  data-scroll-spy>Responsive con JavaScript</a>
+    <a href="#seccion5"  data-scroll-spy>Responsive Tester</a>
+    <a href="#seccion6"  data-scroll-spy>Detección de dispositivos</a>
+    <a href="#seccion7"  data-scroll-spy>Detección de conexión</a>
+    <a href="#seccion8"  data-scroll-spy>Deteccion de camara web</a>
+    <a href="#seccion9"  data-scroll-spy>Geolocalización</a>
+    <a href="#seccion10" data-scroll-spy >Filtros de busqueda</a>
+    <a href="#seccion11" data-scroll-spy >Sorteo Digital</a>
+    <a href="#seccion12" data-scroll-spy >Slider</a>
+    <a href="#seccion13" data-scroll-spy >Video Inteligente</a>
+    <a href="#seccion14" data-scroll-spy >Validacion de formularios</a>
+    <a href="#seccion15" data-scroll-spy >Narrador de voz</a>
+    <a href="ajax.html" data-scroll-spy >Ajax</a> -->
+</nav>
+</aside>
+
+<main>
+
+    <section id="crud" class="crud">
+        <h1>CRUD API REST AJAX</h1>
+        <article>
+            <h2 class="crud-title">Agregar Santo</h2>
+            <form action="" class="crud-form">
+                <input type="text" name="nombre" placeholder="name" required >
+                <br><br>
+                <input type="text"  name="constelacion" placeholder="constelacion" required>
+                <br>
+                <br>
+                <input type="submit" value="Actualizar">
+                <input type="hidden" name="id">
+            <br>
+            <br>
+            </form >
+        </article>
+        <article>
+            <h2>Ver Santos</h2>
+            <table class="crud-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Constelacion</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </article>
+    
+</section>
+<template id="crud-template">
+    <tr>
+        <td class="name"></td>
+        <td class="constellation"></td>
+        <td>
+            <button class="edit">Editar</button>
+            <button class="delete">Eliminar</button>
+        </td>
+    </tr>
+</template>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+</main>
+
+
+<button class="scroll-top-btn hidden btn">
+    &#11014
+</button>
+<button class="darkMode-btn btn">
+    🌞
+</button>
+<br><br>
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="js/script_ajax.js" type="module"></script>
+
+
+<script >
+const d = document,
+$table=d.querySelector(".crud-table"),
+$form = d.querySelector(".crud-form"),
+$title = d.querySelector(".crud-title"),
+$template = d.getElementById("crud-template").content,
+$fragment = d.createDocumentFragment();
+
+const ajax = (options)=>{  //funcion para conectarse a API
+    let {url, method, success, error, data}= options; //opciones que se daran para cada metodo del crud
+    const xhr = new XMLHttpRequest();
+
+    xhr.addEventListener("readystatechange", e=>{
+        if(xhr.readyState!==4)return;
+
+        if(xhr.status >= 200 && xhr.status < 300){
+            let json=JSON.parse(xhr.responseText); //convertir respuesta del servidor a texto
+            success(json);
+        }else{
+            let message = xhr.statusText || "ocurrio un error";
+            error(`Error ${xhr.status}: ${message}`);
+        }
+    });
+
+    xhr.open(method || "GET", url); //si no se especifica un metodo ejecutar GET
+    xhr.setRequestHeader("Content-type","application/json; charset=utf-8"); 
+    xhr.send(JSON.stringify(data));
+
+}
+const getAll = ()=>{ //traer todos los elementos que estan en el API
+    ajax({
+        method: "GET",
+        url: "http://localhost:5555/santos",
+        success:(res)=> {
+            console.log(res);
+            res.forEach(el =>{ //ordenar elementos del JSON en la tabla 
+                $template.querySelector(".name").textContent = el.nombre; 
+                $template.querySelector(".constellation").textContent = el.constelacion;    
+                $template.querySelector(".edit").dataset.id = el.id; //al presionar edit guardar en el.id el id que se quiere modificar
+                $template.querySelector(".edit").dataset.name = el.nombre;
+                $template.querySelector(".edit").dataset.constellation = el.constelacion;
+                $template.querySelector(".delete").dataset.id = el.id;
+                let $clone=d.importNode($template, true); //clonar el contenido del template
+                $fragment.appendChild($clone); 
+
+            });
+            $table.querySelector("tbody").appendChild($fragment);
+        },
+        error: (err)=>{
+            console.error(err)
+            $table.insertAdjacentHTML("afterend",`<p><b>${err}</b></p>`);
+        },
+        data:null
+    })
+}
+d.addEventListener("DOMContentLoaded", getAll);
+
+d.addEventListener("submit", e=>{
+    if(e.target ===$form){
+        e.preventDefault();
+
+        if(!e.target.id.value){//si el id elemento esta vacio
+            //Create - POST
+            ajax({
+                url:"http://localhost:5555/santos",
+                method:"POST",
+                success:(res)=>location.reload(),
+                error:()=>$form.insertAdjacentHTML("afterend",`<p><b>${err}</b></p>`),
+                data: {
+                    nombre:e.target.nombre.value,
+                    constelacion: e.target.constelacion.value
+                }
+
+            })
+        }else{
+            //Update - put
+            ajax({
+                url:`http://localhost:5555/santos/${e.target.id.value}`,
+                method:"PUT",
+                success:(res)=>location.reload(),
+                error:()=>$form.insertAdjacentHTML("afterend",`<p><b>${err}</b></p>`),
+                data: {
+                    nombre:e.target.nombre.value,
+                    constelacion: e.target.constelacion.value
+                }
+
+            })
+        }
+    }
+
+})
+d.addEventListener("click", e=>{
+    if(e.target.matches(".edit")){
+        //alert("presionaste el boton editar");
+        $title.textContent="Editar Santo";
+        $form.nombre.value=e.target.dataset.name;  //pponer en el input los datos a editar 
+        $form.constelacion.value=e.target.dataset.constellation;
+        $form.id.value = e.target.dataset.id;
+    }
+    if(e.target.matches(".delete")){
+        let isDelete = confirm(`Estas seguro de elimiar el id ${e.target.dataset.id}?`);
+
+        if(isDelete){
+            //ELIMINAR -DELETE
+            ajax({
+                url:`http://localhost:5555/santos/${e.target.dataset.id}`,
+                method:"DELETE",
+                success:(res)=>location.reload(),
+                error:()=>$form.insertAdjacentHTML("afterend",`<p><b>${err}</b></p>`)
+                
+            })
+        }
+
+    }
+})
+
+</script>
+</html>
